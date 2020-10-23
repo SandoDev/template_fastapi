@@ -1,0 +1,2 @@
+fastapi==0.61.1
+littlenv==0.1.7
