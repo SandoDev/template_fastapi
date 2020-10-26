@@ -1,3 +1,3 @@
 """
-Configuration of microservice
+Configuration of microservice with FastAPI
 """

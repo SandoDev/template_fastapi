@@ -2,8 +2,7 @@
 Metainformation of service
 
 endpoints:
-- health
-- version of service
 - root
-- etc...
+- current version of microservice
+- health
 """

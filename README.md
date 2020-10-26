@@ -43,6 +43,9 @@ It is necessary to have it installed on the machine where the project will be mo
 ### Instalation (Local)
 
 ### Execution (Local)
+```sh
+gunicorn --env FASTAPI_SETTINGS_MODULE=config.settings config.api:app --bind=0.0.0.0:8001 --timeout=300 -k=uvicorn.workers.UvicornWorker --reload
+```
 
 ### Instalation (Docker)
 
