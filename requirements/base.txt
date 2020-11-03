@@ -4,3 +4,5 @@ httptools==0.1.1
 uvicorn==0.12.2
 gunicorn==20.0.4
 littlenv==0.1.7
+
+mongoengine==0.20.0
