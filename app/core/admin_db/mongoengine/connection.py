@@ -1,5 +1,5 @@
-import os
 from mongoengine import connect, disconnect
+from config import settings
 
 
 def connect_db():
@@ -7,12 +7,12 @@ def connect_db():
     Connect to database using mongoengine
     """
     connect(
-        db=os.getenv('MONGO_NAME'),
-        host=os.getenv('MONGO_HOST'),
-        port=int(os.getenv('MONGO_PORT')),
-        username=os.getenv('MONGO_USERNAME'),
-        password=os.getenv("MONGO_PASSWORD"),
-        alias=os.getenv('MONGO_NAME')
+        db=settings.MONGO_NAME,
+        host=settings.MONGO_HOST,
+        port=int(settings.MONGO_PORT),
+        username=settings.MONGO_USERNAME,
+        password=settings.MONGO_PASSWORD,
+        alias=settings.MONGO_NAME
     )
 
 
@@ -21,5 +21,5 @@ def disconnect_db():
     Disconnect to database using mongoengine
     """
     disconnect(
-        alias=os.getenv('MONGO_NAME')
+        alias=settings.MONGO_NAME
     )

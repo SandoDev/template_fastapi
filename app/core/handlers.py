@@ -55,8 +55,9 @@ class ProcessHandler:
         """
         Just save model
         """
-        doc = QuerysModelTwoMotor.save(serializer)
+        model = QuerysModelTwoMotor()
+        doc = model.save(serializer)
         result = {
-            "uuid_model": doc.uuid
+            "uuid_model": doc.get('uuid')
         }
         return result

@@ -45,7 +45,7 @@ def endpoint_two(model: ModelOne):
 @router.post(
     "/endpoint_three",
     summary="save model",
-    description="Description of endpoint",
+    description="save model with mongoengine",
     response_class=JSONResponse,
     tags=["Endpoints"],
 )
@@ -84,13 +84,13 @@ def endpoint_four(uuid: str):
 @router.post(
     "/endpoint_five",
     summary="save model",
-    description="Save model with motor",
+    description="Save model with motor and pydantic",
     response_class=JSONResponse,
     tags=["Endpoints"],
 )
-def endpoint_five(model: ModelTwo):
+async def endpoint_five(model: ModelTwo):
     model_dict = jsonable_encoder(model)
-    result = ProcessHandler.process_one(
+    result = ProcessHandler.process_five(
         model_dict
     )
     return format_response(

@@ -1,7 +1,8 @@
 """
 Querys with pattern repository
 """
-from .models import ModelOne
+from .admin_db.motor.connection import connect_db
+from .models import ModelOne, ModelTwo
 
 
 class QuerysModelOneMongoEngine:
@@ -27,8 +28,17 @@ class QuerysModelTwoMotor:
     """
 
     def __init__(self):
-        self.orm = ModelOne()
+        self.cli_conn = None
 
-    def save(self, data):
-        doc = self.orm.save(data)
-        return doc
+    def cli_bd(self):
+        if self.cli_conn is None:
+            self.cli_conn = connect_db()
+            return self.cli_conn
+        return self.cli_conn
+
+    def save(self, data_to_save: dict):
+        model = ModelTwo(**data_to_save)
+        collection = model.__class__.__name__
+        model_dict = model.dict()
+        self.cli_bd()[collection].insert_one(model_dict)
+        return model_dict

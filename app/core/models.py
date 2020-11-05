@@ -1,16 +1,14 @@
 import os
 from datetime import datetime
-from uuid import uuid4
+from uuid import uuid4, UUID
+from pydantic import BaseModel, Field
+from typing import List
 from mongoengine import (
     Document,
     StringField,
     FloatField,
     DateTimeField,
-    UUIDField,
-    ListField,
-    EmbeddedDocument,
-    EmbeddedDocumentField,
-    BooleanField
+    UUIDField
 )
 
 
@@ -53,25 +51,16 @@ class ModelOne(Document, DocumentBase):
     meta = {'collection': 'model_one'}
 
 
-class Comment(EmbeddedDocument):
-    content = StringField(
-        required=True
-    )
-    publish = BooleanField(
-        default=False
-    )
+class Comment(BaseModel):
+    content: str = Field()
+    publish: bool = Field(default=False)
 
 
-class ModelTwo(Document, DocumentBase):
-    uuid = UUIDField(
-        default=uuid4(),
-        binary=False,
-    )
-    tittle = StringField(
-        required=False,
-        default=''
-    )
-    values = ListField(
-        EmbeddedDocumentField(Comment),
-        required=True
-    )
+class ModelTwo(BaseModel):
+    # TODO guardar uuid como str
+    uuid: UUID = Field(default_factory=uuid4)
+    tittle: str = Field(required=False)
+    values: List[Comment] = Field()
+
+    class Config:
+        orm_mode = True
