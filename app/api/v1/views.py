@@ -1,28 +1,102 @@
 from fastapi import APIRouter
+from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
+from app.api.v1.serializers import (
+    ModelOne,
+    ModelTwo
+)
+from app.core.handlers import ProcessHandler
+from app.core.responses import format_response
 
 router = APIRouter()
 
 
-def format_response(response: dict, success: bool = True):
-    return {
-        "code": response.get('status_code'),
-        "message": response.get('message'),
-        "data": response.get('data_response'),
-    }
+@router.post(
+    "/endpoint_one",
+    summary="Summary",
+    description="Description of endpoint",
+    response_class=JSONResponse,
+    tags=["Endpoints"],
+)
+def endpoint_one(model: ModelOne):
+    model_dict = jsonable_encoder(model)
+    return format_response(
+        {
+            'success': True,
+            'message': 'full response',
+            'data_response': model_dict
+        }
+    )
+
+
+@router.post(
+    "/endpoint_two",
+    summary="Summary",
+    description="Description of endpoint",
+    response_class=JSONResponse,
+    tags=["Endpoints"],
+    response_model=ModelOne,
+)
+def endpoint_two(model: ModelOne):
+    model_dict = jsonable_encoder(model)
+    return model_dict
+
+
+@router.post(
+    "/endpoint_three",
+    summary="save model",
+    description="Description of endpoint",
+    response_class=JSONResponse,
+    tags=["Endpoints"],
+)
+def endpoint_three(model: ModelOne):
+    model_dict = jsonable_encoder(model)
+    result = ProcessHandler.process_one(
+        model_dict
+    )
+    return format_response(
+        {
+            'success': True,
+            'message': 'Registro guardado',
+            'data_response': result
+        }
+    )
 
 
 @router.get(
-    "/endpoint_one",
+    "/endpoint_four/{uuid}",
+    summary="get model",
+    description="Description of endpoint",
     response_class=JSONResponse,
-    tags=['Endpoints']
+    tags=["Endpoints"],
 )
-def endpoint_one(uuid: str = ''):
+def endpoint_four(uuid: str):
+    result = ProcessHandler.process_four(uuid)
     return format_response(
         {
-            'status_code': 200,
-            'message': 'todo full',
-            'data_response': uuid
-        },
-        True
+            'success': True,
+            'message': 'full response',
+            'data_response': jsonable_encoder(result)
+        }
+    )
+
+
+@router.post(
+    "/endpoint_five",
+    summary="save model",
+    description="Save model with motor",
+    response_class=JSONResponse,
+    tags=["Endpoints"],
+)
+def endpoint_five(model: ModelTwo):
+    model_dict = jsonable_encoder(model)
+    result = ProcessHandler.process_one(
+        model_dict
+    )
+    return format_response(
+        {
+            'success': True,
+            'message': 'Registro guardado',
+            'data_response': result
+        }
     )

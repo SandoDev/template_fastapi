@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
+from starlette import status
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from littlenv import littlenv
 
@@ -49,10 +50,16 @@ app.add_event_handler(
 @app.exception_handler(Exception)
 async def exception_handler(request, exc):
     data = {}
-    code_status = exc.args[3]
-    data["success"] = exc.args[0]
-    data["message"] = exc.args[1]
-    data["data"] = exc.args[2]
+    if len(exc.args) == 4:
+        code_status = exc.args[3]
+        data["success"] = exc.args[0]
+        data["message"] = exc.args[1]
+        data["data_response"] = exc.args[2]
+    else:
+        code_status = status.HTTP_500_INTERNAL_SERVER_ERROR
+        data["success"] = False
+        data["message"] = str(exc.args)
+        data["data_response"] = {}
 
     return JSONResponse(
         status_code=code_status,
