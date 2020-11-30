@@ -1,5 +1,6 @@
 import os
 API_VERSION = '1.0'
+TIMEZONE = os.getenv("TIMEZONE", None)
 
 """Database config"""
 MONGO_NAME = os.getenv("MONGO_NAME", None)
