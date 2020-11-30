@@ -2,7 +2,7 @@ import os
 import motor.motor_asyncio as motor
 
 """Global vars"""
-API_VERSION = '1.0'
+API_VERSION = '1.0.1'  # TODO change after each change
 TIMEZONE = os.getenv("TIMEZONE", None)
 
 """Database config"""
