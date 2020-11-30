@@ -8,7 +8,9 @@ from mongoengine import (
     StringField,
     FloatField,
     DateTimeField,
-    UUIDField
+    UUIDField,
+    EmbeddedDocument,
+    EmbeddedDocumentField
 )
 
 
@@ -21,6 +23,11 @@ class DocumentBase:
         default=datetime.now(),
         null=True
     )
+
+
+class ModelEmb(EmbeddedDocument):
+    uuid_mo = UUIDField(binary=False, default=uuid4)
+    name = StringField(default='asd')
 
 
 class ModelOne(Document, DocumentBase):
@@ -64,3 +71,4 @@ class ModelTwo(BaseModel):
 
     class Config:
         orm_mode = True
+        collection_name = 'model_two'

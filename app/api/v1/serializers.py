@@ -20,7 +20,10 @@ class ModelOne(BaseModel):
 
 
 class Comment(BaseModel):
-    content: str
+    content: int = Field(
+        title='contenido del comentario',
+        description='este campo almacena un comentario',
+    )
     publish: bool = False
 
 

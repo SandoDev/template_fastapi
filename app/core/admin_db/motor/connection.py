@@ -4,7 +4,7 @@ import motor.motor_asyncio as motor
 
 def connect_db():
     """
-    Connect to database using mongoengine
+    Connect to database using motor
     """
     url = "mongodb://{auth}{host}:{port}/{db_name}".format(
         auth=settings.AUTH,
