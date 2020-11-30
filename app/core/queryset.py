@@ -1,24 +1,7 @@
 """
 Querys with pattern repository
 """
-from .models import ModelOne, ModelTwo
-
-
-class QuerysModelOneMongoEngine:
-    """
-    Querys of ModelOne using mongoengine library
-    """
-
-    @classmethod
-    def save(cls, data_to_save: dict):
-        model = ModelOne(**data_to_save)
-        doc = model.save()
-        return doc
-
-    @classmethod
-    def get_by_query(cls, query: dict):
-        docs = ModelOne.objects(**query)
-        return docs
+from config.settings import database
 
 
 class QuerysModelTwoMotor:
