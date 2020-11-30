@@ -1,7 +1,6 @@
 """
 Querys with pattern repository
 """
-from .admin_db.motor.connection import connect_db
 from .models import ModelOne, ModelTwo
 
 
