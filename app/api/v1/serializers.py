@@ -1,31 +1,24 @@
-from pydantic import BaseModel, Field, validator
-from typing import List, Optional
+from typing import Optional
+from pydantic import BaseModel, EmailStr
+from app.core.models import StudentSchema
+
+SerializerStudent = StudentSchema
 
 
-class Comment(BaseModel):
-    content: str = Field(...)
-    publish: bool = False
+class UpdateStudentModel(BaseModel):
+    fullname: Optional[str]
+    email: Optional[EmailStr]
+    course_of_study: Optional[str]
+    year: Optional[int]
+    gpa: Optional[float]
 
-
-class ModelOne(BaseModel):
-    text: str
-    num: int = Field(...)
-    comment: Comment
-    values: List[str] = []
-
-
-class ModelTwo(BaseModel):
-    name: str = Field(
-        max_length=50,
-        min_length=10,
-        description='Name of product',
-    )
-    description: Optional[str] = None
-    price: float
-    tax: Optional[float]
-
-    @validator('tax')
-    def max_and_min_length(cls, v):
-        if v < 0 or v > 1000:
-            raise ValueError('Max value 1000 and min value 0')
-        return v
+    class Config:
+        schema_extra = {
+            "example": {
+                "fullname": "John Doe",
+                "email": "jdoe@x.edu.ng",
+                "course_of_study": "Water resources and environmental engineering",
+                "year": 4,
+                "gpa": "4.0",
+            }
+        }

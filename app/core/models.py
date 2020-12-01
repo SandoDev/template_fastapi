@@ -1,7 +1,7 @@
-from datetime import datetime
 from uuid import uuid4
-from pydantic import BaseModel, Field
-from typing import List, Optional
+from datetime import datetime
+from typing import Optional
+from pydantic import BaseModel, Field, EmailStr
 
 
 class DocumentBase(BaseModel):
@@ -10,17 +10,21 @@ class DocumentBase(BaseModel):
     updated_at: Optional[datetime]
 
 
-class Comment(BaseModel):
-    content: str = Field(...)
-    publish: bool = False
-
-
-class ModelOne(DocumentBase):
-    text: str
-    num: int = Field(...)
-    comment: Comment
-    values: List[str] = []
+class StudentSchema(DocumentBase):
+    fullname: str = Field(...)
+    email: EmailStr = Field(...)
+    course_of_study: str = Field(...)
+    year: int = Field(..., gt=0, lt=9)
+    gpa: float = Field(..., le=4.0)
 
     class Config:
-        orm_mode = True
-        collection_name = 'model_one'
+        name_collection = 'student'
+        schema_extra = {
+            "example": {
+                "fullname": "John Doe",
+                "email": "jdoe@x.edu.ng",
+                "course_of_study": "Water resources engineering",
+                "year": 2,
+                "gpa": "3.0",
+            }
+        }
