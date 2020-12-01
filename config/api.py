@@ -6,7 +6,7 @@ from starlette import status
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from config.settings import API_VERSION
 from config.urls import urls
-from app.core.responses import format_response
+from app.core.helpers import format_response
 
 
 app = FastAPI(
