@@ -4,14 +4,10 @@ from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
 from starlette import status
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from littlenv import littlenv
-
 from config.settings import API_VERSION
 from config.urls import urls
 from app.core.responses import format_response
 
-
-littlenv.load()
 
 app = FastAPI(
     title="FastAPI template of microservices",

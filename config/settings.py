@@ -1,5 +1,9 @@
 import os
 import motor.motor_asyncio as motor
+from littlenv import littlenv
+
+littlenv.load()
+
 
 """Global vars"""
 API_VERSION = '1.0.1'  # TODO change after each change
