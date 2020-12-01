@@ -1,9 +1,5 @@
-fastapi==0.61.1
-uvloop==0.14.0
-httptools==0.1.1
-uvicorn==0.12.2
-gunicorn==20.0.4
-littlenv==0.1.7
-
-mongoengine==0.20.0
+fastapi==0.62.0
+pydantic[email]
+uvicorn==0.12.3
 motor==2.3.0
+littlenv==0.1.7
